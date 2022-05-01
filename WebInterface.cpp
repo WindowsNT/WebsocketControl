@@ -130,7 +130,6 @@ class DNSRegistration
     DNS_SERVICE_INSTANCE di = {};
     IP6_ADDRESS i6 = {};
     IP4_ADDRESS i4 = {};
-    bool Off = 0;
 
 public:
 
@@ -161,8 +160,6 @@ public:
             DNSRegistration* r = (DNSRegistration*)pQueryContext;
             if (pInstance)
                 DnsServiceFreeInstance(pInstance);
-            if (r->Off)
-                PostMessage(hMainWindow, WM_CLOSE, 0, 0);
         };
         rd.pQueryContext = this;
         auto err = DnsServiceRegister(&rd, 0);
@@ -172,7 +169,6 @@ public:
 
     ~DNSRegistration()
     {
-        Off = 1;
         DnsServiceDeRegister(&rd, 0);
     }
 };
